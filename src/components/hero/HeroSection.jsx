@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import AvatarCard from './AvatarCard'
 import ScrollIndicator from './ScrollIndicator'
 
@@ -30,6 +31,15 @@ export default function HeroSection() {
   const sectionRef = useRef(null)
   const vis = useMountReveal(6)
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  })
+
+  // Parallax offsets
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 120])
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -60])
+
   return (
     <section
       id="hero"
@@ -47,7 +57,7 @@ export default function HeroSection() {
       }}
     >
       {/* Ambient accent glow — top right */}
-      <div
+      <motion.div
         aria-hidden="true"
         style={{
           position: 'absolute',
@@ -58,10 +68,11 @@ export default function HeroSection() {
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(201,106,74,0.08) 0%, transparent 65%)',
           pointerEvents: 'none',
+          y: y1,
         }}
       />
       {/* Ambient glow — bottom left */}
-      <div
+      <motion.div
         aria-hidden="true"
         style={{
           position: 'absolute',
@@ -72,6 +83,7 @@ export default function HeroSection() {
           borderRadius: '50%',
           background: 'radial-gradient(circle, rgba(184,173,157,0.04) 0%, transparent 65%)',
           pointerEvents: 'none',
+          y: y2,
         }}
       />
 
@@ -92,7 +104,7 @@ export default function HeroSection() {
         {/* Left: text content */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           {/* Eyebrow */}
-          <div style={revealStyle(vis[0])}>
+          <div style={revealStyle(vis[0])} className="hero-eyebrow">
             <span
               style={{
                 display: 'inline-flex',
@@ -159,6 +171,7 @@ export default function HeroSection() {
 
           {/* CTAs */}
           <div
+            className="hero-ctas"
             style={{
               ...revealStyle(vis[3]),
               display: 'flex',
@@ -175,7 +188,7 @@ export default function HeroSection() {
           </div>
 
           {/* Subtle status row */}
-          <div style={revealStyle(vis[4])}>
+          <div style={revealStyle(vis[4])} className="hero-status">
             <div style={{
               display: 'flex',
               alignItems: 'center',
@@ -198,11 +211,13 @@ export default function HeroSection() {
 
         {/* Right: avatar card */}
         <div
+          className="avatar-wrapper"
           style={{
             ...revealStyle(vis[5]),
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            width: '100%',
           }}
         >
           <AvatarCard />
@@ -213,24 +228,26 @@ export default function HeroSection() {
 
       {/* Responsive grid */}
       <style>{`
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
             gap: 48px !important;
             text-align: center;
           }
-          .hero-grid p {
-            margin-left: auto !important;
-            margin-right: auto !important;
-          }
-          .hero-grid > div:first-child > div:nth-child(4) {
-            justify-content: center;
-          }
-          .hero-grid > div:first-child > div:nth-child(1) span {
-            justify-content: center;
-          }
+          .hero-grid p { margin-left: auto !important; margin-right: auto !important; }
+          .hero-ctas   { justify-content: center !important; }
+          .hero-eyebrow { justify-content: center !important; }
+          .hero-status  { justify-content: center !important; }
+        }
+        @media (max-width: 900px) {
+          .avatar-wrapper { max-width: 260px !important; }
+        }
+        @media (max-width: 480px) {
+          .avatar-wrapper { max-width: 220px !important; }
+          .hero-grid { padding: 0 16px !important; }
         }
       `}</style>
+
     </section>
   )
 }

@@ -32,9 +32,9 @@ export default function Navbar() {
         right: 0,
         zIndex: 50,
         transition: 'background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease',
-        background: scrolled ? 'rgba(23,21,19,0.88)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(12px)' : 'none',
+        background: scrolled ? 'rgba(23,21,19,0.88)' : 'rgba(23,21,19,0.4)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
         borderBottom: scrolled ? '1px solid var(--border-subtle)' : '1px solid transparent',
       }}
     >

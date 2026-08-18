@@ -44,7 +44,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ── Subtle dot-grid background texture ─────────────────────── */
+/* ── Subtle dot-grid background texture & noise ─────────────────────── */
 body::before {
   content: '';
   position: fixed;
@@ -53,6 +53,15 @@ body::before {
   background-size: 32px 32px;
   pointer-events: none;
   z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 999;
 }
 
 /* ── Scroll-driven reveal utility ───────────────────────────── */
@@ -121,3 +130,70 @@ body::before {
 .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.2s; }
 .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.3s; }
 .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.4s; }
+.reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.5s; }
+.reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:none; transition-delay: 0.6s; }
+.reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:none; transition-delay: 0.7s; }
+
+/* ── Line-draw animation ─────────────────────────────────────── */
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+.line-draw {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.8s var(--ease-out-expo);
+}
+.line-draw.visible { transform: scaleX(1); }
+
+/* ── SVG Path Animation ──────────────────────────────────────── */
+@keyframes svgDraw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+
+.svg-path-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  /* animation attached via JS or inline style when in view */
+}
+
+/* ── Slide-in from left ──────────────────────────────────────── */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+/* ── About card hover ────────────────────────────────────────── */
+.about-card {
+  transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(201,106,74,0.15);
+  border-color: rgba(201,106,74,0.2);
+}
+
+/* ── Global overflow guard ───────────────────────────────────── */
+html, body { overflow-x: hidden; max-width: 100%; }
+
+/* ── Hero responsive fixes ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-grid {
+    padding: 0 16px !important;
+    gap: 40px !important;
+  }
+  .hero-grid > div:first-child {
+    gap: 20px !important;
+  }
+}
+
+/* ── Reduced motion: About animations ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > *, .reveal-left,
+  .line-draw, .about-card { transition: none !important; opacity: 1 !important; transform: none !important; }
+}
+
