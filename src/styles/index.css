@@ -197,3 +197,29 @@ html, body { overflow-x: hidden; max-width: 100%; }
   .line-draw, .about-card { transition: none !important; opacity: 1 !important; transform: none !important; }
 }
 
+/* ── Projects page ───────────────────────────────────────── */
+.project-card { overflow: visible; }
+
+@media (max-width: 860px) {
+  .project-card {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+    padding-bottom: 64px !important;
+  }
+}
+
+/* Ensure laptop eyes visual doesn't cause horizontal scroll */
+@media (max-width: 480px) {
+  [id^="eye-"] { width: 40px !important; height: 40px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-visual,
+  .project-text {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
