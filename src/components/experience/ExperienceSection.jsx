@@ -27,7 +27,7 @@ export default function ExperienceSection() {
       thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - y}px 0)`
       spider.style.top = `${y - 4}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
-      events.forEach(event => { const r = event.getBoundingClientRect(); event.classList.toggle('is-visible', r.top < window.innerHeight * .72 && r.bottom > window.innerHeight * .08) })
+      events.forEach((event, i) => event.classList.toggle('is-visible', y >= Number(nodes[i].dataset.y) - 36))
     }
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update)
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
