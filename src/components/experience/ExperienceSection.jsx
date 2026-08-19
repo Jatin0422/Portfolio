@@ -16,8 +16,10 @@ export default function ExperienceSection() {
   useEffect(() => {
     const timeline = timelineRef.current, spider = timeline.querySelector('.experience-spider'), thread = timeline.querySelector('.experience-thread')
     const threadImage = thread.querySelector('img')
+    const spiderImage = spider.querySelector('img')
     const nodes = [...timeline.querySelectorAll('.experience-node')], events = [...timeline.querySelectorAll('.experience-event')]
     let threadCenters = []
+    let spiderAnchor = { x: spiderImage.naturalWidth / 2, y: 0 }
     const readThread = () => {
       const canvas = document.createElement('canvas'), context = canvas.getContext('2d')
       canvas.width = threadImage.naturalWidth; canvas.height = threadImage.naturalHeight
@@ -35,6 +37,15 @@ export default function ExperienceSection() {
       })
       update()
     }
+    const readSpiderAnchor = () => {
+      const canvas = document.createElement('canvas'), context = canvas.getContext('2d')
+      canvas.width = spiderImage.naturalWidth; canvas.height = spiderImage.naturalHeight
+      context.drawImage(spiderImage, 0, 0)
+      const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+      const row = Array.from({ length: canvas.width }, (_, column) => column).filter(column => pixels[column * 4 + 3] > 10)
+      if (row.length) spiderAnchor = { x: (row[0] + row[row.length - 1]) / 2, y: 0 }
+      update()
+    }
     const update = () => {
       const rect = timeline.getBoundingClientRect()
       const timelineStart = window.scrollY + rect.top
@@ -42,15 +53,18 @@ export default function ExperienceSection() {
       const start = timelineStart + 95 - window.innerHeight * .72
       const progress = Math.min(1, Math.max(0, (window.scrollY - start) / usableDistance))
       const y = progress * PATH_HEIGHT
+      const revealY = Math.min(PATH_HEIGHT, y + 3)
       const threadRect = thread.getBoundingClientRect()
-      thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - Math.min(PATH_HEIGHT, y + 3)}px 0)`
-      const x = threadCenters[Math.round(y)] ?? threadImage.naturalWidth / 2
-      spider.style.left = `${threadRect.left - rect.left + x / threadImage.naturalWidth * threadRect.width}px`
-      spider.style.top = `${y - 4}px`
+      const x = threadCenters[Math.round(revealY)] ?? threadImage.naturalWidth / 2
+      thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - revealY}px 0)`
+      const spiderWidth = spider.offsetWidth, spiderHeight = spider.offsetHeight
+      spider.style.left = `${threadRect.left - rect.left + x / threadImage.naturalWidth * threadRect.width - (spiderAnchor.x / spiderImage.naturalWidth * spiderWidth - spiderWidth / 2)}px`
+      spider.style.top = `${revealY - spiderAnchor.y / spiderImage.naturalHeight * spiderHeight}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
       events.forEach((event, i) => event.classList.toggle('is-visible', y >= Number(nodes[i].dataset.y) - 36))
     }
     if (threadImage.complete) readThread(); else threadImage.addEventListener('load', readThread, { once: true })
+    if (spiderImage.complete) readSpiderAnchor(); else spiderImage.addEventListener('load', readSpiderAnchor, { once: true })
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update)
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
   }, [])
