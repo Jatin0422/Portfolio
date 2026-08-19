@@ -24,7 +24,7 @@ export default function ExperienceSection() {
       const start = timelineStart + 95 - window.innerHeight * .72
       const progress = Math.min(1, Math.max(0, (window.scrollY - start) / usableDistance))
       const y = progress * PATH_HEIGHT
-      thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - y}px 0)`
+      thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - Math.min(PATH_HEIGHT, y + 3)}px 0)`
       spider.style.top = `${y - 4}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
       events.forEach((event, i) => event.classList.toggle('is-visible', y >= Number(nodes[i].dataset.y) - 36))

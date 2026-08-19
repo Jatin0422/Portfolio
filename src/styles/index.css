@@ -271,8 +271,8 @@ html, body { overflow-x: hidden; max-width: 100%; }
 .experience-base-line { position: absolute; top: 0; bottom: 80px; left: 50%; width: 1px; transform: translateX(-50%); background: rgba(201,106,74,.025); }
 .experience-thread { position: absolute; top: 0; left: 50%; width: 35px; height: 1035px; transform: translateX(-50%); clip-path: inset(0 0 1035px 0); z-index: 4; pointer-events: none; }
 .experience-thread img { display: block; width: 35px; height: 1035px; max-width: none; }
-.experience-spider { position: absolute; top: -4px; left: 50%; width: 80px; height: 110px; transform: translate(-50%, -6px); z-index: 10; pointer-events: none; filter: drop-shadow(0 3px 5px #000b); will-change: top; }
-.experience-spider img { width: 100%; height: 100%; object-fit: contain; }
+.experience-spider { position: absolute; top: -4px; left: 50%; width: 80px; height: 110px; transform: translate(-50%, 5px); z-index: 10; pointer-events: none; filter: drop-shadow(0 3px 5px #000b); will-change: top; }
+.experience-spider img { width: 100%; height: 100%; object-fit: contain; clip-path: inset(11px 0 0); transform: translateY(-11px); }
 .experience-node { position: absolute; left: 50%; width: 28px; height: 28px; border: 1px solid var(--accent); border-radius: 50%; background: var(--bg-base); transform: translate(-50%, -50%); z-index: 8; }
 .experience-node-web { position: absolute; inset: -4px; width: calc(100% + 8px); height: calc(100% + 8px); opacity: 0; transform: scale(.72); transform-origin: center; transition: opacity .45s ease, transform .55s var(--ease-out-expo); }
 .experience-node.is-filled { border-color: var(--text-primary); box-shadow: 0 0 0 5px rgba(201,106,74,.07), 0 0 18px rgba(201,106,74,.16); }
