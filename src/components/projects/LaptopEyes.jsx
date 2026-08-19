@@ -241,18 +241,45 @@ export default function LaptopEyes() {
               backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 3px)',
             }} />
 
-            {/* ─ Eyes ─ */}
+            {/* ─ Face (Eyes + Smile) ─ */}
             <div style={{
               position: 'absolute',
               inset: 0,
               display: 'flex',
+              flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '22%',
               zIndex: 15,
             }}>
-              <Eye px={px} py={py} id="eye-left" />
-              <Eye px={px} py={py} id="eye-right" />
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '22%',
+                width: '100%',
+              }}>
+                <Eye px={px} py={py} id="eye-left" />
+                <Eye px={px} py={py} id="eye-right" />
+              </div>
+              
+              {/* Smile */}
+              <svg 
+                width="48" 
+                height="22" 
+                viewBox="0 0 48 22" 
+                style={{ 
+                  marginTop: '32px', 
+                  filter: 'drop-shadow(0 2px 6px rgba(201,106,74,0.35))' 
+                }}
+              >
+                <path 
+                  d="M 4 4 Q 24 20 44 4" 
+                  fill="none" 
+                  stroke="rgba(201,106,74,0.55)" 
+                  strokeWidth="2.5" 
+                  strokeLinecap="round" 
+                />
+              </svg>
             </div>
 
             {/* Screen vignette */}

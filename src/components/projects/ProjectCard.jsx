@@ -12,7 +12,7 @@ const PROJECT_IMAGES = {
   rentwise: rentwiseImg,
 }
 
-/* ── Browser-frame container with real screenshot ─────────── */
+/* ── Visual container with real screenshot ─────────── */
 function ProjectMockup({ project }) {
   return (
     <div style={{
@@ -22,48 +22,21 @@ function ProjectMockup({ project }) {
       border: '1px solid var(--border-normal)',
       boxShadow: '0 24px 64px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,106,74,0.06)',
       overflow: 'hidden',
+      position: 'relative',
+      padding: '32px',
     }}>
-      {/* Browser chrome */}
+      <img
+        src={PROJECT_IMAGES[project.id]}
+        alt={`${project.title} product screenshot`}
+        loading="lazy"
+        style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '8px', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}
+        onError={e => { e.currentTarget.style.outline = '2px solid red'; console.error('IMG FAILED:', e.currentTarget.src) }}
+      />
+      {/* Vignette */}
       <div style={{
-        display: 'flex', alignItems: 'center', gap: '6px',
-        padding: '10px 14px',
-        borderBottom: '1px solid var(--border-subtle)',
-        background: 'var(--bg-raised)',
-      }}>
-        {['#C96A4A', '#B8AD9D55', '#7A726855'].map((c, i) => (
-          <span key={i} style={{ width: '7px', height: '7px', borderRadius: '50%', background: c }} />
-        ))}
-        <div style={{
-          flex: 1, marginLeft: '8px', height: '16px', borderRadius: '4px',
-          background: 'rgba(233,225,212,0.05)', border: '1px solid rgba(233,225,212,0.08)',
-          display: 'flex', alignItems: 'center', paddingLeft: '8px', gap: '4px',
-        }}>
-          <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true">
-            <circle cx="4" cy="4" r="3" fill="none" stroke="rgba(122,114,104,0.5)" strokeWidth="1" />
-            <path d="M4 2v2l1 1" stroke="rgba(122,114,104,0.5)" strokeWidth="1" strokeLinecap="round" />
-          </svg>
-          <span style={{ fontSize: '6px', color: 'var(--text-muted)', letterSpacing: '0.04em', fontFamily: 'var(--font-sans)' }}>
-            {project.url}
-          </span>
-        </div>
-      </div>
-
-      {/* Screenshot */}
-      <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
-        <img
-          src={PROJECT_IMAGES[project.id]}
-          alt={`${project.title} product screenshot`}
-          loading="eager"
-          decoding="async"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', display: 'block' }}
-          onError={e => { e.currentTarget.style.outline = '2px solid red'; console.error('IMG FAILED:', e.currentTarget.src) }}
-        />
-        {/* Vignette */}
-        <div style={{
-          position: 'absolute', inset: 0, pointerEvents: 'none',
-          background: 'radial-gradient(ellipse 100% 100% at 50% 0%, transparent 55%, rgba(14,13,11,0.35) 100%)',
-        }} />
-      </div>
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        background: 'radial-gradient(ellipse 100% 100% at 50% 0%, transparent 55%, rgba(14,13,11,0.35) 100%)',
+      }} />
     </div>
   )
 }
@@ -132,9 +105,6 @@ export default function ProjectCard({ project, index }) {
   const imgCol  = isEven ? '1' : '2'
   const textCol = isEven ? '2' : '1'
 
-  // Clip direction: image slides in from left (even) or right (odd)
-  const clipFrom = isEven ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)'
-
   // Text slides in from right (even) or left (odd)
   const textX = isEven ? 40 : -40
 
@@ -168,10 +138,10 @@ export default function ProjectCard({ project, index }) {
       {/* ── Image panel ── */}
       <motion.div
         style={{ y: mockupY, gridColumn: imgCol, gridRow: '1', zIndex: 1 }}
-        initial={{ opacity: 0, clipPath: clipFrom }}
-        whileInView={{ opacity: 1, clipPath: 'inset(0 0% 0 0%)' }}
+        initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+        whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.85, ease: [0.19, 1, 0.22, 1] }}
+        transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
         className="project-visual"
       >
         <ProjectMockup project={project} />

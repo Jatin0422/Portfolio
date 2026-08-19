@@ -45,6 +45,15 @@ export default function ProjectsHero() {
         background: 'radial-gradient(circle, rgba(184,173,157,0.04) 0%, transparent 65%)',
         pointerEvents: 'none', y: y2,
       }} />
+      <div className="projects-orbits" aria-hidden="true">
+        <svg viewBox="0 0 800 600" fill="none" role="presentation">
+          <g>
+            <ellipse cx="400" cy="300" rx="360" ry="132" transform="rotate(-18 400 300)" />
+            <ellipse cx="400" cy="300" rx="318" ry="168" transform="rotate(38 400 300)" />
+            <ellipse cx="400" cy="300" rx="250" ry="108" transform="rotate(84 400 300)" />
+          </g>
+        </svg>
+      </div>
 
       {/* Content grid */}
       <div
