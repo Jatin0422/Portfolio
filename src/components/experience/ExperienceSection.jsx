@@ -18,7 +18,7 @@ export default function ExperienceSection() {
     const timeline = timelineRef.current, spider = timeline.querySelector('.experience-spider'), thread = timeline.querySelector('.experience-thread')
     const nodes = [...timeline.querySelectorAll('.experience-node')], events = [...timeline.querySelectorAll('.experience-event')]
     const update = () => {
-      const rect = timeline.getBoundingClientRect(), y = Math.min(PATH_HEIGHT, Math.max(0, -rect.top / Math.max(1, timeline.offsetHeight - window.innerHeight * .55)) * PATH_HEIGHT)
+      const rect = timeline.getBoundingClientRect(), y = Math.min(PATH_HEIGHT, Math.max(0, -rect.top / Math.max(1, timeline.offsetHeight - window.innerHeight * .25)) * PATH_HEIGHT)
       thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - y}px 0)`
       spider.style.top = `${y - 4}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
@@ -34,5 +34,6 @@ export default function ExperienceSection() {
       {EVENTS.map(([year, heading, title, description], i) => { const y = 95 + i * 220; return <article className="experience-event" style={{ top: y }} key={heading}><div className="experience-main"><h3>{heading}</h3><div>{title}</div></div><div className="experience-year">{year}</div><p>{description}</p></article> })}
       {EVENTS.map(([, heading], i) => <div className="experience-node" data-y={95 + i * 220} style={{ top: 95 + i * 220 }} key={heading}><NodeWeb/></div>)}
     </div>
+    <footer className="experience-closing"><span className="experience-label">Continuing</span><h2>Still building.</h2><p>The next milestone hasn't been written yet.</p></footer>
   </div></section>
 }
