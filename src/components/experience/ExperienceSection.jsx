@@ -59,7 +59,7 @@ export default function ExperienceSection() {
       thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - revealY}px 0)`
       const spiderWidth = spider.offsetWidth, spiderHeight = spider.offsetHeight
       spider.style.left = `${threadRect.left - rect.left + x / threadImage.naturalWidth * threadRect.width - (spiderAnchor.x / spiderImage.naturalWidth * spiderWidth - spiderWidth / 2)}px`
-      spider.style.top = `${revealY - 37}px`
+      spider.style.top = `${revealY - 37 + (y === 0 ? 30 : 0)}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
       events.forEach((event, i) => event.classList.toggle('is-visible', y >= Number(nodes[i].dataset.y) - 36))
     }
