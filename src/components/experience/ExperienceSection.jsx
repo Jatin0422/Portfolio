@@ -21,7 +21,8 @@ export default function ExperienceSection() {
       const rect = timeline.getBoundingClientRect()
       const timelineStart = window.scrollY + rect.top
       const usableDistance = Math.max(1, timeline.offsetHeight - window.innerHeight)
-      const progress = Math.min(1, Math.max(0, (window.scrollY - timelineStart) / usableDistance))
+      const start = timelineStart + 95 - window.innerHeight * .72
+      const progress = Math.min(1, Math.max(0, (window.scrollY - start) / usableDistance))
       const y = progress * PATH_HEIGHT
       thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - y}px 0)`
       spider.style.top = `${y - 4}px`
