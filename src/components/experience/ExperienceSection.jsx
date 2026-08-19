@@ -18,7 +18,11 @@ export default function ExperienceSection() {
     const timeline = timelineRef.current, spider = timeline.querySelector('.experience-spider'), thread = timeline.querySelector('.experience-thread')
     const nodes = [...timeline.querySelectorAll('.experience-node')], events = [...timeline.querySelectorAll('.experience-event')]
     const update = () => {
-      const rect = timeline.getBoundingClientRect(), y = Math.min(PATH_HEIGHT, Math.max(0, -rect.top / Math.max(1, timeline.offsetHeight - window.innerHeight * .25)) * PATH_HEIGHT)
+      const rect = timeline.getBoundingClientRect()
+      const timelineStart = window.scrollY + rect.top
+      const usableDistance = Math.max(1, timeline.offsetHeight - window.innerHeight)
+      const progress = Math.min(1, Math.max(0, (window.scrollY - timelineStart) / usableDistance))
+      const y = progress * PATH_HEIGHT
       thread.style.clipPath = `inset(0 0 ${PATH_HEIGHT - y}px 0)`
       spider.style.top = `${y - 4}px`
       nodes.forEach(node => node.classList.toggle('is-filled', y >= Number(node.dataset.y)))
