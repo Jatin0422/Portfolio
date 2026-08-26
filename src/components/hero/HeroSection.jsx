@@ -95,8 +95,8 @@ export default function HeroSection() {
           margin: '0 auto',
           padding: '0 24px',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '64px',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(240px, .8fr) minmax(0, .8fr)',
+          gap: '40px',
           alignItems: 'center',
         }}
         className="hero-grid"
@@ -143,14 +143,14 @@ export default function HeroSection() {
                 color: 'var(--text-primary)',
               }}
             >
-              I build useful things{' '}
+              Hello! I'm{' '}
               <em style={{
                 fontStyle: 'italic',
                 color: 'var(--accent)',
                 position: 'relative',
                 display: 'inline-block',
               }}>
-                with code.
+                Jatin.
               </em>
             </h1>
           </div>
@@ -179,7 +179,7 @@ export default function HeroSection() {
               gap: '14px',
             }}
           >
-            <CTAButton primary to="/projects" id="hero-cta-explore">
+            <CTAButton primary href="#projects" id="hero-cta-explore">
               Explore my work ↗
             </CTAButton>
             <CTAButton to="/resume" id="hero-cta-resume">
@@ -209,7 +209,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right: avatar card */}
+        {/* Center: avatar */}
         <div
           className="avatar-wrapper"
           style={{
@@ -221,6 +221,13 @@ export default function HeroSection() {
           }}
         >
           <AvatarCard />
+        </div>
+
+        {/* Right: focus */}
+        <div className="hero-focus" style={{ ...revealStyle(vis[5]), display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <span style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.7rem, 3vw, 2.5rem)', color: 'var(--text-primary)', lineHeight: 1.05 }}>An Aspiring</span>
+          <strong style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(.9rem, 1.6vw, 1.15rem)', letterSpacing: '.14em', color: 'var(--accent)' }}>AI &amp; ML ENGINEER</strong>
+          <strong style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(.9rem, 1.6vw, 1.15rem)', letterSpacing: '.14em', color: 'var(--text-secondary)' }}>FULL-STACK DEVELOPER</strong>
         </div>
       </div>
 
@@ -234,6 +241,8 @@ export default function HeroSection() {
             gap: 48px !important;
             text-align: center;
           }
+          .avatar-wrapper { order: -1; }
+          .hero-focus { align-items: center; }
           .hero-grid p { margin-left: auto !important; margin-right: auto !important; }
           .hero-ctas   { justify-content: center !important; }
           .hero-eyebrow { justify-content: center !important; }
