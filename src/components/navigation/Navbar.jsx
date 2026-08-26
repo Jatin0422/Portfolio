@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 
 const NAV_LINKS = [
-  { label: 'Home',       href: '/'           },
-  { label: 'About',      href: '/about'       },
-  { label: 'Projects',   href: '/projects'    },
-  { label: 'Experience', href: '/experience'  },
-  { label: 'Contact',    href: '/contact'     },
+  { label: 'Home',       href: '#hero'        },
+  { label: 'About',      href: '#about'       },
+  { label: 'Projects',   href: '#projects-hero' },
+  { label: 'Experience', href: '#experience'  },
+  { label: 'Contact',    href: '#contact'     },
 ]
 
 export default function Navbar() {
   const [scrolled,   setScrolled]   = useState(false)
   const [menuOpen,   setMenuOpen]   = useState(false)
-  const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -51,8 +49,8 @@ export default function Navbar() {
         }}
       >
         {/* Brand */}
-        <Link
-          to="/"
+        <a
+          href="#hero"
           onClick={closeMenu}
           aria-label="Jatin – home"
           style={{
@@ -67,7 +65,7 @@ export default function Navbar() {
           onMouseLeave={e => e.currentTarget.style.color = 'var(--text-primary)'}
         >
           JATIN<span style={{ color: 'var(--accent)' }}>.</span>
-        </Link>
+        </a>
 
         {/* Desktop links */}
         <ul
@@ -81,14 +79,11 @@ export default function Navbar() {
           }}
           className="nav-desktop-links"
         >
-          {NAV_LINKS.map(({ label, href }) => {
-            const active = pathname === href
-            return (
+          {NAV_LINKS.map(({ label, href }) => (
               <li key={label}>
-                <NavLink href={href} active={active}>{label}</NavLink>
+                <NavLink href={href}>{label}</NavLink>
               </li>
-            )
-          })}
+          ))}
         </ul>
 
         {/* Resume CTA */}
@@ -150,8 +145,8 @@ export default function Navbar() {
         <ul role="list" style={{ listStyle: 'none', margin: 0, padding: '8px 24px 20px' }}>
           {NAV_LINKS.map(({ label, href }) => (
             <li key={label} style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-              <Link
-                to={href}
+              <a
+                href={href}
                 tabIndex={menuOpen ? 0 : -1}
                 onClick={closeMenu}
                 style={{
@@ -161,11 +156,11 @@ export default function Navbar() {
                   fontWeight: 500,
                   letterSpacing: '0.04em',
                   textDecoration: 'none',
-                  color: pathname === href ? 'var(--accent)' : 'var(--text-secondary)',
+                  color: 'var(--text-secondary)',
                 }}
               >
                 {label}
-              </Link>
+              </a>
             </li>
           ))}
           <li style={{ paddingTop: '16px' }}>
@@ -188,11 +183,11 @@ export default function Navbar() {
 
 /* ── Sub-components ─────────────────────────────────────────── */
 
-function NavLink({ href, active, children }) {
+function NavLink({ href, children }) {
   const [hovered, setHovered] = useState(false)
   return (
-    <Link
-      to={href}
+    <a
+      href={href}
       style={{
         fontFamily: 'var(--font-sans)',
         fontSize: '0.8125rem',
@@ -200,14 +195,14 @@ function NavLink({ href, active, children }) {
         letterSpacing: '0.06em',
         textTransform: 'uppercase',
         textDecoration: 'none',
-        color: active || hovered ? (active ? 'var(--accent)' : 'var(--text-primary)') : 'var(--text-secondary)',
+        color: hovered ? 'var(--text-primary)' : 'var(--text-secondary)',
         transition: 'color 0.2s',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {children}
-    </Link>
+    </a>
   )
 }
 

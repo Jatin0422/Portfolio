@@ -179,7 +179,7 @@ export default function HeroSection() {
               gap: '14px',
             }}
           >
-            <CTAButton primary to="/projects" id="hero-cta-explore">
+            <CTAButton primary href="#projects" id="hero-cta-explore">
               Explore my work ↗
             </CTAButton>
             <CTAButton to="/resume" id="hero-cta-resume">

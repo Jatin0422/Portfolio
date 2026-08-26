@@ -68,7 +68,7 @@ export default function ExperienceSection() {
     update(); window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update)
     return () => { window.removeEventListener('scroll', update); window.removeEventListener('resize', update) }
   }, [])
-  return <section className="experience-page" aria-labelledby="experience-heading"><div className="experience-wrap">
+  return <section id="experience" className="experience-page" aria-labelledby="experience-heading"><div className="experience-wrap">
     <header className="experience-hero"><div><span className="experience-label">05 · Experience</span><h1 id="experience-heading">The path so far.</h1><p>A journey from business ownership to software development and toward applied machine learning — shaped by building things, solving problems and continuously learning.</p></div></header>
     <div className="experience-intro"><h2>Not a straight line.</h2><p>Each stage added another layer — from understanding how businesses operate to building software and exploring applied machine learning.</p></div>
     <div className="experience-timeline" ref={timelineRef}><div className="experience-base-line" aria-hidden="true"/><div className="experience-thread" aria-hidden="true"><img src="/images/experience/thread.png" alt=""/></div><div className="experience-spider" aria-hidden="true"><img src="/images/experience/spider.png" alt=""/></div>
