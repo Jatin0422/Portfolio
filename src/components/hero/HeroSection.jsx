@@ -95,8 +95,8 @@ export default function HeroSection() {
           margin: '0 auto',
           padding: '0 24px',
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) minmax(240px, .8fr) minmax(0, .8fr)',
-          gap: '40px',
+          gridTemplateColumns: 'minmax(0, 1fr) minmax(300px, 1.35fr) minmax(0, 1fr)',
+          gap: '24px',
           alignItems: 'center',
         }}
         className="hero-grid"
@@ -249,10 +249,10 @@ export default function HeroSection() {
           .hero-focus { align-items: center; }
         }
         @media (max-width: 900px) {
-          .avatar-wrapper { max-width: 260px !important; }
+          .avatar-wrapper { max-width: 420px !important; }
         }
         @media (max-width: 480px) {
-          .avatar-wrapper { max-width: 220px !important; }
+          .avatar-wrapper { max-width: 300px !important; }
           .hero-grid { padding: 0 16px !important; }
         }
       `}</style>
