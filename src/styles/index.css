@@ -292,3 +292,89 @@ html, body { overflow-x: hidden; max-width: 100%; }
 @media (max-width: 900px) { .experience-event { grid-template-columns: 42% 14% 44%; } .experience-main { padding-right: 42px; transform: none; } .experience-event p { padding-left: 48px; } .experience-main h3 { font-size: 1.7rem; } .experience-year { font-size: 3rem; transform: none; } }
 @media (max-width: 720px) { .experience-wrap { padding: 0 16px 88px; } .experience-hero { min-height: auto; padding: 112px 0 72px; } .experience-intro { grid-template-columns: 1fr; gap: 20px; padding: 44px 0; } .experience-timeline { height: 1800px; } .experience-base-line { left: 26px; bottom: 0; } .experience-thread { left: 9px; } .experience-spider { left: 26px; width: 64px; height: 88px; } .experience-node { left: 26px; width: 24px; height: 24px; } .experience-event { left: 68px; right: 0; grid-template-columns: 1fr; gap: 8px; } .experience-main { padding: 0; text-align: left; } .experience-main h3 { font-size: 1.65rem; } .experience-year { order: -1; font-size: 1.75rem; } .experience-event p { max-width: 100%; padding: 0; font-size: .9rem; } .experience-closing { padding-top: 56px; } }
 @media (prefers-reduced-motion: reduce) { .experience-event, .experience-node-web { transition: none; } }
+
+/* ── Single-page atmospheric backgrounds ─────────────────────── */
+#hero, #about, #projects-hero, #projects, #experience, #contact { isolation: isolate; }
+#hero::before, #hero::after, #about::before, #about::after,
+#projects-hero::before, #projects-hero::after, #projects::before,
+#experience::before, #experience::after, #contact::before, #contact::after {
+  content: ''; position: absolute; pointer-events: none; z-index: 0;
+}
+
+/* Home — eclipse, orbitals and a low atmospheric horizon */
+#hero::before {
+  width: min(76vw, 940px); aspect-ratio: 1; left: 50%; top: 50%;
+  transform: translate(-50%, -49%); border-radius: 50%;
+  background: radial-gradient(circle at 50% 47%, rgba(23,21,19,.08) 0 48%, transparent 49%),
+    radial-gradient(circle at 50% 50%, transparent 59%, rgba(201,106,74,.11) 59.2%, transparent 60%),
+    radial-gradient(ellipse at 50% 96%, rgba(201,106,74,.1), transparent 47%);
+  box-shadow: 0 0 100px rgba(201,106,74,.045);
+}
+#hero::after {
+  inset: 14% 7% 7%; opacity: .65;
+  background: radial-gradient(ellipse 60% 17% at 50% 100%, transparent 69%, rgba(184,173,157,.1) 70%, transparent 71%),
+    radial-gradient(circle at 13% 34%, rgba(201,106,74,.56) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 27%, rgba(233,225,212,.32) 0 1px, transparent 2px),
+    radial-gradient(circle at 76% 74%, rgba(201,106,74,.4) 0 1px, transparent 2px),
+    radial-gradient(circle at 25% 73%, rgba(233,225,212,.25) 0 1px, transparent 2px);
+}
+#hero > .hero-grid, #hero > :last-child { position: relative; z-index: 1; }
+
+/* About — distant, illuminated architectural portal */
+#about::before {
+  width: min(76vw, 900px); height: min(66vw, 760px); left: 50%; top: 12%;
+  transform: translateX(-50%); border: 1px solid rgba(233,225,212,.065);
+  border-bottom: 0; border-radius: 50% 50% 0 0 / 35% 35% 0 0;
+  box-shadow: 0 0 0 58px rgba(201,106,74,.018), 0 0 0 116px rgba(233,225,212,.018), inset 0 0 90px rgba(201,106,74,.035);
+}
+#about::after {
+  width: min(48vw, 560px); height: min(48vw, 560px); left: 50%; top: 23%; transform: translateX(-50%);
+  border: 1px solid rgba(201,106,74,.1); border-bottom: 0; border-radius: 50% 50% 0 0 / 36% 36% 0 0;
+  background: radial-gradient(ellipse at 50% 25%, rgba(233,225,212,.055), transparent 63%);
+}
+#about > div { position: relative; z-index: 1; }
+
+/* Projects — quiet blueprint grid, paths and nodes */
+#projects-hero::before, #projects::before {
+  inset: 0; opacity: .55;
+  background-image: linear-gradient(rgba(184,173,157,.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,173,157,.028) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+#projects-hero::after {
+  width: min(70vw, 920px); height: 330px; right: -12%; top: 17%; border: 1px solid rgba(201,106,74,.09);
+  border-radius: 50%; transform: rotate(-17deg);
+  box-shadow: -90px 90px 0 -89px rgba(201,106,74,.24), -330px 160px 0 -89px rgba(201,106,74,.16);
+}
+#projects-hero > .ph-grid, #projects > div { position: relative; z-index: 2; }
+
+/* Experience — peripheral web atmosphere, never the active timeline */
+#experience::before {
+  inset: 10% 0 auto; height: 72%; opacity: .5;
+  background: radial-gradient(ellipse 36% 15% at 4% 19%, transparent 68%, rgba(233,225,212,.07) 69%, transparent 70%),
+    radial-gradient(ellipse 34% 17% at 96% 43%, transparent 68%, rgba(201,106,74,.08) 69%, transparent 70%),
+    radial-gradient(circle at 10% 31%, rgba(201,106,74,.36) 0 1px, transparent 2px),
+    radial-gradient(circle at 91% 66%, rgba(233,225,212,.22) 0 1px, transparent 2px);
+}
+#experience::after { inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,106,74,.025), transparent 57%); }
+.experience-wrap { position: relative; z-index: 1; }
+
+/* Contact — warm, layered contour landscape */
+#contact { position: relative; overflow: hidden; }
+#contact::before {
+  left: -10%; right: -10%; bottom: -4%; height: 300px;
+  background: repeating-radial-gradient(ellipse 100% 44% at 50% 100%, transparent 0 28px, rgba(233,225,212,.055) 29px 30px, transparent 31px 48px);
+  opacity: .8;
+}
+#contact::after {
+  left: 8%; right: 8%; bottom: 0; height: 220px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(201,106,74,.14), transparent 66%);
+}
+#contact > * { position: relative; z-index: 1; }
+
+@media (max-width: 720px) {
+  #hero::before { width: 125vw; top: 43%; }
+  #about::before { width: 120vw; height: 720px; left: 56%; }
+  #about::after { width: 82vw; height: 480px; }
+  #projects-hero::after { width: 120vw; right: -50%; }
+}
