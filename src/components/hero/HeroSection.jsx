@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import AvatarCard from './AvatarCard'
+import HeroBackground from './HeroBackground'
 import ScrollIndicator from './ScrollIndicator'
 
 /* ── Stagger reveal on mount ────────────────────────────────── */
@@ -57,6 +58,7 @@ export default function HeroSection() {
       }}
     >
       {/* Ambient accent glow — top right */}
+      <HeroBackground />
       <motion.div
         aria-hidden="true"
         style={{

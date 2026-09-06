@@ -295,50 +295,15 @@ html, body { overflow-x: hidden; max-width: 100%; }
 
 /* ── Single-page atmospheric backgrounds ─────────────────────── */
 #hero, #about, #projects-hero, #projects, #experience, #contact { isolation: isolate; }
-#hero::before, #hero::after, #about::before, #about::after,
+#about::before, #about::after,
 #projects-hero::before, #projects-hero::after, #projects::before,
 #experience::before, #experience::after, #contact::before, #contact::after {
   content: ''; position: absolute; pointer-events: none; z-index: 0;
 }
 
 /* Home — celestial editorial atmosphere */
-#hero::before {
-  width: min(74vw, 940px); aspect-ratio: 1; left: 50%; top: 47%;
-  transform: translate(-50%, -50%); border-radius: 50%;
-  background: radial-gradient(circle at 50% 47%, rgba(23,21,19,.96) 0 54%, rgba(23,21,19,.84) 61%, transparent 62%),
-    radial-gradient(circle at 58% 44%, transparent 59%, rgba(201,106,74,.26) 60%, rgba(233,225,212,.16) 60.25%, transparent 60.75%),
-    radial-gradient(ellipse at 50% 51%, rgba(201,106,74,.12), transparent 65%),
-    radial-gradient(ellipse 46% 15% at 30% 59%, rgba(184,173,157,.055), transparent 70%),
-    radial-gradient(ellipse 42% 14% at 72% 54%, rgba(184,173,157,.05), transparent 70%);
-  box-shadow: 0 0 80px rgba(201,106,74,.07), inset -24px -14px 44px rgba(0,0,0,.42);
-}
-#hero::after {
-  left: -4%; right: -4%; bottom: 0; height: 31%; opacity: .84;
-  clip-path: polygon(0 65%, 8% 48%, 17% 59%, 28% 33%, 37% 51%, 48% 30%, 60% 58%, 70% 38%, 80% 50%, 91% 23%, 100% 43%, 100% 100%, 0 100%);
-  background: linear-gradient(to bottom, rgba(184,173,157,.08), rgba(23,21,19,.93) 44%),
-    radial-gradient(ellipse at 50% 4%, rgba(201,106,74,.18), transparent 55%);
-}
 #hero > .hero-grid { position: relative; z-index: 1; }
-#hero .hero-grid::before {
-  content: ''; position: absolute; width: min(112vw, 1420px); height: min(60vw, 720px); left: 50%; top: 50%;
-  transform: translate(-50%, -50%) rotate(-11deg); border: 1px solid rgba(201,106,74,.11); border-radius: 50%;
-  box-shadow: 0 0 0 94px rgba(233,225,212,.026), 0 0 0 208px rgba(201,106,74,.035);
-  background: radial-gradient(circle at 13% 29%, rgba(201,106,74,.7) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 83% 24%, rgba(233,225,212,.38) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 78% 76%, rgba(201,106,74,.48) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 24% 74%, rgba(233,225,212,.25) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 58% 12%, rgba(201,106,74,.4) 0 1px, transparent 1.7px);
-  pointer-events: none; z-index: 0;
-}
-#hero .hero-grid::after {
-  content: '01\A HOME\A\A IDEAS\A INTO\A IMPACT'; white-space: pre; position: absolute; left: -9.5%; bottom: 10%;
-  color: rgba(184,173,157,.43); font: 500 .58rem/1.55 var(--font-sans); letter-spacing: .16em; pointer-events: none; z-index: 0;
-}
-#hero .hero-grid > * { position: relative; z-index: 1; }
-#hero .hero-focus::after {
-  content: 'BUILD\A LEARN\A ITERATE\A GROW'; white-space: pre; position: absolute; left: 116%; top: 61%;
-  color: rgba(184,173,157,.38); font: 500 .55rem/1.55 var(--font-sans); letter-spacing: .16em; pointer-events: none;
-}
+#hero .hero-background { opacity: .92; }
 
 /* About — distant, illuminated architectural portal */
 #about::before {
@@ -393,8 +358,7 @@ html, body { overflow-x: hidden; max-width: 100%; }
 #contact > * { position: relative; z-index: 1; }
 
 @media (max-width: 720px) {
-  #hero::before { width: 125vw; top: 43%; }
-  #hero .hero-grid::after, #hero .hero-focus::after { display: none; }
+  #hero .hero-background { opacity: .62; transform: scale(1.14); transform-origin: 56% 48%; }
   #about::before { width: 120vw; height: 720px; left: 56%; }
   #about::after { width: 82vw; height: 480px; }
   #projects-hero::after { width: 120vw; right: -50%; }
